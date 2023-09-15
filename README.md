@@ -10,10 +10,10 @@ This guide will show you how to connect Google Forms to a Snowflake Database thr
 
 Before getting started, you will need the following:
 
-- Google Forms Account
-- Google Cloud Account
-- Snowflake Account
-- Node
+- 🎤 Google Forms Account
+- 🚀 Google Cloud Account
+- 🔥 Snowflake Account
+- ⚡ Node
 
 ## Setup
 
