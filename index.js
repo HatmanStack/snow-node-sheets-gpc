@@ -13,7 +13,7 @@ const app = express();
 const getInvite = async () => {
   // Create a new Google authentication object and specify the location of the credentials file and the scopes to be used
   const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(__dirname, 'secrets/creds.json'),
+    keyFile: path.join(__dirname, 'creds.json'),
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
