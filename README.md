@@ -22,7 +22,7 @@ Before getting started, you will need the following:
 - Create GPC Service Account Credentials, folder `secrets`, insert credentials into folder and rename `creds.json`
 - Replace `REGION`, `USERNAME`, `PASSWORD` with your own Snowflake credentials
 - Deploy to Google Cloud Run.
-- Configure Node app to connect Google Form and Snowflake Database. [Medium Post](https://medium.com/@HatmanStack/connect-google-forms-with-snowflake-ac8a2a6837b)
+- Configure Node app to connect Google Form and Snowflake Database. [Blog Post](https://portfolio.hatstack.fun/read/post/Connect-Google-Forms-with-Snowflake)
 
 ## Continuous Deployment
 
