@@ -4,7 +4,7 @@ This guide will show you how to connect Google Forms to a Snowflake Database thr
 
 ## Post With Granular Instructions
 
-[Medium Post](https://medium.com/@HatmanStack/connect-google-forms-with-snowflake-ac8a2a6837b)
+[Blog Post](https://portfolio.hatstack.fun/read/post/Connect-Google-Forms-with-Snowflake)
 
 ## Prerequisites
 
