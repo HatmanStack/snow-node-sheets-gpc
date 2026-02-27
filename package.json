@@ -12,6 +12,6 @@
   "dependencies": {
     "express": "^4.18.2",
     "googleapis": "^105.0.0",
-    "snowflake-sdk": "^1.6.14"
+    "node-fetch": "^2.7.0"
   }
 }

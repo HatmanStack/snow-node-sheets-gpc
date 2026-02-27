@@ -1,2 +1,7 @@
 /node_modules/*
 creds.json
+*.csv
+upload_csv.py
+role-policy.json
+trust-policy.json
+.gcloudignore

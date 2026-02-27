@@ -16,6 +16,9 @@ RUN npm install
 # Copy local code to the container image.
 COPY . .
 
+# Explicitly copy creds.json to ensure it's present if ignored by context
+COPY creds.json ./creds.json
+
 # Run the web service on container startup.
 EXPOSE 8080
 CMD [ "node", "index.js" ]
