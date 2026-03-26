@@ -47,11 +47,11 @@ Report detected state to the user before continuing.
 ## Pre-Flight: Role File Validation
 
 Before spawning any agents, verify all required role prompt files exist using **Glob**:
-- `.claude/skills/pipeline/planner.md`
-- `.claude/skills/pipeline/plan_reviewer.md`
-- `.claude/skills/pipeline/doc-engineer.md`
-- `.claude/skills/pipeline/doc-reviewer.md`
-- `.claude/skills/pipeline/doc-auditor.md`
+- `skills/pipeline/planner.md`
+- `skills/pipeline/plan_reviewer.md`
+- `skills/pipeline/doc-engineer.md`
+- `skills/pipeline/doc-reviewer.md`
+- `skills/pipeline/doc-auditor.md`
 
 If any file is missing, **stop and report** which files are absent.
 
@@ -191,6 +191,8 @@ All fixes are committed and verified.
 ```
 
 ### If unverified
+
+**STOP HERE. Present these options to the user and WAIT for their response. Do NOT choose an option yourself.**
 
 ```text
 Pipeline paused for $ARGUMENTS.
