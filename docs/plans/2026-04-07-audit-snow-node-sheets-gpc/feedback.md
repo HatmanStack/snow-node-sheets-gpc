@@ -2,7 +2,7 @@
 
 ## Active Feedback
 
-_(none)_
+None.
 
 ### Phase 4 Review — CHANGES_REQUESTED (moved to Resolved Feedback)
 
@@ -177,7 +177,7 @@ All CRITICAL/HIGH findings from health-audit.md, all REMEDIATION TARGETS from ev
 **Resolution:** Phase 4 work is now committed as six atomic Conventional
 Commits matching the templates in Phase-4.md:
 
-```
+```text
 71bdc0c build(docker): harden image (node:20-alpine, npm ci --omit=dev, USER node, HEALTHCHECK)
 9b7e622 chore: add husky pre-commit running lint-staged and tests
 3c06639 ci: gate PRs on lint, format, typecheck, and test coverage
@@ -235,7 +235,7 @@ lockfile (lines 10-13 list only `express` and `googleapis`).
 The remaining 4 `node-fetch` matches in `package-lock.json` are a transitive
 dependency chain:
 
-```
+```text
 dynamo-node-sheets-gpc@2.0.0
 └─┬ googleapis@171.4.0
   └─┬ google-auth-library@10.6.2
