@@ -1,6 +1,9 @@
 /node_modules/*
 coverage/
 creds.json
+.env
+.env.*
+!.env.example
 *.csv
 upload_csv.py
 role-policy.json
