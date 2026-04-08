@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Read a required env var or throw a startup error.
+ * @param {string} name
+ * @returns {string}
+ */
 function required(name) {
   const v = process.env[name];
   if (!v) throw new Error(`Missing required env var: ${name}`);

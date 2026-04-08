@@ -8,10 +8,16 @@ const { httpError } = require('./errors');
 
 const ListSchema = z.array(ItemSchema);
 
+/**
+ * Fetch a URL with timeout and retry on 5xx / network failures.
+ * @param {string} url
+ * @param {RequestInit} [init]
+ * @returns {Promise<Response>}
+ */
 async function fetchJson(url, init = {}) {
   const { fetchTimeoutMs, fetchMaxRetries } = CONFIG;
   let attempt = 0;
-  // eslint-disable-next-line no-constant-condition
+
   while (true) {
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), fetchTimeoutMs);
@@ -32,6 +38,15 @@ async function fetchJson(url, init = {}) {
   }
 }
 
+/**
+ * @typedef {{ TS: string, NAME: string, DAYS: string, DIET: string, PAY: string }} Item
+ */
+
+/**
+ * Submit a single item to the upstream API gateway with an idempotency key.
+ * @param {Item} item
+ * @returns {Promise<{ idempotencyKey: string }>}
+ */
 async function submitItem(item) {
   const idempotencyKey = crypto
     .createHash('sha256')
@@ -49,6 +64,10 @@ async function submitItem(item) {
   return { idempotencyKey };
 }
 
+/**
+ * Fetch the list of items from the upstream API gateway.
+ * @returns {Promise<Item[]>}
+ */
 async function listItems() {
   const res = await fetchJson(CONFIG.listUrl);
   if (!res.ok) throw httpError(502, 'upstream_list_failed');

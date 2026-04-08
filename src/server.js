@@ -17,13 +17,20 @@ function createApp() {
   app.use(dataRouter);
   app.use(dashboardRouter);
 
-  // eslint-disable-next-line no-unused-vars
-  app.use((err, _req, res, _next) => {
-    const status = err.status || 500;
-    const code = err.code || 'internal_error';
-    console.error(JSON.stringify({ level: 'error', code, status, msg: err.message }));
-    res.status(status).json({ error: { code, message: code } });
-  });
+  app.use(
+    /**
+     * @param {Error & { status?: number, code?: string }} err
+     * @param {import('express').Request} _req
+     * @param {import('express').Response} res
+     * @param {import('express').NextFunction} _next
+     */
+    (err, _req, res, _next) => {
+      const status = err.status || 500;
+      const code = err.code || 'internal_error';
+      console.error(JSON.stringify({ level: 'error', code, status, msg: err.message }));
+      res.status(status).json({ error: { code, message: code } });
+    },
+  );
 
   return app;
 }
