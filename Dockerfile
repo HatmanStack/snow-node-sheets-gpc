@@ -1,5 +1,6 @@
-# Pinned Node 20 LTS Alpine for small attack surface and matched engines.
-FROM node:20-alpine
+# Pinned Node 20 LTS Alpine by digest for reproducible, immutable builds.
+# Bump manually when patching: docker pull node:20-alpine && docker inspect ...
+FROM node:20-alpine@sha256:f598378b5240225e6beab68fa9f356db1fb8efe55173e6d4d8153113bb8f333c
 
 WORKDIR /usr/src/app
 
