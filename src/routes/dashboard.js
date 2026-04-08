@@ -18,6 +18,7 @@ router.get('/dashboard', async (_req, res, next) => {
     const items = await listItems();
     // Sort newest first. Coerce unparseable TS to 0 so non-ISO values fall to
     // the bottom in stable order instead of producing undefined sort behavior.
+    /** @param {string} s */
     const tsKey = (s) => {
       const t = new Date(s).getTime();
       return Number.isNaN(t) ? 0 : t;
