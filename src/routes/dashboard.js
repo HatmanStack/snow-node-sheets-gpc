@@ -16,7 +16,13 @@ const router = express.Router();
 router.get('/dashboard', async (_req, res, next) => {
   try {
     const items = await listItems();
-    items.sort((a, b) => new Date(b.TS).getTime() - new Date(a.TS).getTime());
+    // Sort newest first. Coerce unparseable TS to 0 so non-ISO values fall to
+    // the bottom in stable order instead of producing undefined sort behavior.
+    const tsKey = (s) => {
+      const t = new Date(s).getTime();
+      return Number.isNaN(t) ? 0 : t;
+    };
+    items.sort((a, b) => tsKey(b.TS) - tsKey(a.TS));
     const rows = items
       .map(
         (i) => `<tr>
