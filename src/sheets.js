@@ -8,8 +8,8 @@ const ItemSchema = z.object({
   TS: z.string().min(1).max(64),
   NAME: z.string().min(1).max(200),
   DAYS: z.string().min(1).max(20),
-  DIET: z.string().min(0).max(500),
-  PAY: z.string().min(0).max(50),
+  DIET: z.string().max(500),
+  PAY: z.string().max(50),
 });
 
 const auth = new google.auth.GoogleAuth({
