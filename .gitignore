@@ -1,4 +1,5 @@
 /node_modules/*
+coverage/
 creds.json
 *.csv
 upload_csv.py
