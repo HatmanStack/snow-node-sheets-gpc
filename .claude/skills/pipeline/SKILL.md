@@ -53,6 +53,7 @@ Before starting any stage, detect prior progress to determine the correct entry 
 3. **Check for final review**: Look for `GO` or `NO-GO` entries tagged `FINAL_REVIEW`
 
 Based on findings:
+
 - `GO` or `NO-GO` in feedback.md → pipeline already completed, report result to user and stop
 - `PHASE_APPROVED` for all phases → skip to Stage 3 (Final Review)
 - Any phase progress exists + `PLAN_APPROVED` → skip to Stage 2 at the correct phase (see State Recovery below)
@@ -146,6 +147,7 @@ If all resolved: end with: PLAN_APPROVED
 ### Between Stages - Report to User
 
 After plan approval, report:
+
 ```text
 Plan approved after N iteration(s).
 Phases identified: [list phases found]
@@ -173,6 +175,7 @@ Before processing phases, determine each phase's completion state. For each Phas
 A phase is only skip-eligible when feedback.md contains a `PHASE_APPROVED` record for it. Implementation commits alone are not sufficient.
 
 Report the recovered state to the user before continuing:
+
 ```text
 Resume state for $ARGUMENTS:
 - Phase 1: [done | needs review | needs review fixes | needs implementation | not started]
@@ -358,6 +361,7 @@ C) Ship with caveats (if issues are minor)
 ```
 
 **NO-GO Re-Entry Path:** When the user re-runs `/pipeline $ARGUMENTS` after a NO-GO, the State Recovery (Stage 0) detects the `NO-GO` in feedback.md and routes rework based on the final reviewer's categorization:
+
 - **Plan-level issues** (architecture flaw, missing phase): Re-enter at Stage 1 (Planner) with revision instructions referencing the `FINAL_REVIEW` feedback
 - **Implementation-level issues** (bug, missing test, security): Re-enter at Stage 2 at the affected phase(s), spawning the Implementer with `FINAL_REVIEW` feedback items as `CODE_REVIEW` rework
 - **Mixed issues**: Plan-level first, then implementation-level

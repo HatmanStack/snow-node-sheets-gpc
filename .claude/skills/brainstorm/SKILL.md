@@ -44,6 +44,7 @@ C) Both — DynamoDB for metadata, S3 for content
 ```
 
 **Question priority order:**
+
 1. **Scope** — What's in, what's out? MVP vs full vision?
 2. **Architecture** — How does this integrate with existing code?
 3. **Data model** — What entities, relationships, storage?
@@ -51,6 +52,7 @@ C) Both — DynamoDB for metadata, S3 for content
 5. **Non-functional** — Performance, security, deployment constraints?
 
 **Rules:**
+
 - One question per message
 - Wait for the user's answer before asking the next question
 - Reference specific files/patterns you found during exploration to ground questions in reality
@@ -74,6 +76,7 @@ Anything I'm missing, or should we proceed to creating the design spec?
 ### Step 5: Write Brainstorm Document
 
 Generate the plan directory name using **date + feature slug** format:
+
 - Date: today's date as `YYYY-MM-DD`
 - Slug: short, lowercase, hyphenated feature name derived from the Q&A (e.g., `user-auth`, `search-api`, `billing-webhooks`)
 - Result: `docs/plans/YYYY-MM-DD-feature-slug/`
@@ -85,32 +88,41 @@ Create `docs/plans/YYYY-MM-DD-feature-slug/brainstorm.md` using **Write**:
 # Feature: [Name]
 
 ## Overview
+
 [What we're building — 2-3 paragraphs covering the full picture]
 
 ## Decisions
+
 [Numbered list of every decision made during Q&A, with brief rationale]
+
 - 1. Auth approach: JWT — aligns with existing middleware in src/auth/
 - 2. Storage: DynamoDB — project already uses it, no reason to add complexity
 - ...
 
 ## Scope: In
+
 [Bulleted list of what IS included]
 
 ## Scope: Out
+
 [Bulleted list of what is explicitly EXCLUDED — important for the planner]
 
 ## Open Questions
+
 [Anything unresolved that the Planner will need to decide or ask about]
 [If none, state "None — all scope decisions resolved"]
 
 ## Relevant Codebase Context
+
 [Key files, patterns, and conventions discovered during exploration]
+
 - `src/auth/middleware.ts` — existing auth pattern to follow
 - `lib/dynamodb.ts` — shared DynamoDB client and table utilities
 - Test pattern: Jest with mocks in `__mocks__/` directories
 - ...
 
 ## Technical Constraints
+
 [Any limitations, dependencies, or deployment considerations discovered]
 ```
 

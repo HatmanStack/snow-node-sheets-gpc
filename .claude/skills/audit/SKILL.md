@@ -90,6 +90,7 @@ C) Specific directories only (tell me which to include or exclude)
 1. Pillar overrides — by default, the pipeline remediates until all 12 pillars hit 9/10. Some pillars (like Creativity) may not be improvable through code changes. Override lets you set a lower threshold or exclude a pillar from the remediation gate entirely.
 
 The 12 pillars are:
+
 - **Hire lens:** Problem-Solution Fit, Architecture, Code Quality, Creativity
 - **Stress lens:** Pragmatism, Defensiveness, Performance, Type Rigor
 - **Day 2 lens:** Test Value, Reproducibility, Git Hygiene, Onboarding
@@ -301,6 +302,7 @@ Constraints: [from Step 2]
 ### Step 6: Validate and Write Intake Docs
 
 After all agents complete, verify each agent's output contains its completion signal:
+
 - Health auditor: check for `AUDIT_COMPLETE`
 - Eval hire: check for `EVAL_HIRE_COMPLETE`
 - Eval stress: check for `EVAL_STRESS_COMPLETE`

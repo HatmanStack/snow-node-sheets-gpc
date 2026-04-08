@@ -24,18 +24,19 @@ When multiple intake docs exist, the pipeline creates ONE plan with phases tagge
 ## Intake Documents
 
 Multiple docs exist at `docs/plans/$ARGUMENTS/`:
+
 - `health-audit.md` (if present) — tech debt findings
 - `eval.md` (if present) — 12-pillar scores with remediation targets
 - `doc-audit.md` (if present) — documentation drift findings
 
 ## Phase Tags and Role Routing
 
-| Phase Tag | Implementer Role | Reviewer Role | Work Type |
-|-----------|-----------------|---------------|-----------|
-| `[HYGIENIST]` | `health-hygienist.md` | `health-reviewer.md` | Subtractive: delete dead code, remove unused deps, simplify |
-| `[FORTIFIER]` | `health-fortifier.md` | `health-reviewer.md` | Additive: lint configs, CI, hooks, type strictness |
-| `[IMPLEMENTER]` | `implementer.md` | `reviewer.md` | Code fixes: architecture, error handling, performance, testing |
-| `[DOC-ENGINEER]` | `doc-engineer.md` | `doc-reviewer.md` | Doc fixes: delete stale, fix drift, add prevention |
+| Phase Tag        | Implementer Role      | Reviewer Role        | Work Type                                                      |
+| ---------------- | --------------------- | -------------------- | -------------------------------------------------------------- |
+| `[HYGIENIST]`    | `health-hygienist.md` | `health-reviewer.md` | Subtractive: delete dead code, remove unused deps, simplify    |
+| `[FORTIFIER]`    | `health-fortifier.md` | `health-reviewer.md` | Additive: lint configs, CI, hooks, type strictness             |
+| `[IMPLEMENTER]`  | `implementer.md`      | `reviewer.md`        | Code fixes: architecture, error handling, performance, testing |
+| `[DOC-ENGINEER]` | `doc-engineer.md`     | `doc-reviewer.md`    | Doc fixes: delete stale, fix drift, add prevention             |
 
 ## State Recovery (Resume Detection)
 
@@ -59,10 +60,12 @@ Report detected state to the user before continuing.
 ## Pre-Flight: Role File Validation
 
 Before spawning any agents, verify all required role prompt files exist using **Glob**:
+
 - `skills/pipeline/planner.md`
 - `skills/pipeline/plan_reviewer.md`
 
 Also validate the implementer/reviewer roles needed for each phase tag type. Based on which intake docs are present:
+
 - If `health-audit.md`: `skills/pipeline/health-hygienist.md`, `skills/pipeline/health-fortifier.md`, `skills/pipeline/health-reviewer.md`
 - If `eval.md`: `skills/pipeline/implementer.md`, `skills/pipeline/reviewer.md`
 - If `doc-audit.md`: `skills/pipeline/doc-engineer.md`, `skills/pipeline/doc-reviewer.md`
@@ -163,18 +166,22 @@ Identify all phases by Glob for `docs/plans/$ARGUMENTS/Phase-*.md` (excluding Ph
 For each phase, read the phase title to determine the tag, then spawn the correct implementer and reviewer:
 
 **[HYGIENIST] phases:**
+
 - Implementer: **Read** `health-hygienist.md`, spawn with hygienist role prompt
 - Reviewer: **Read** `health-reviewer.md`, spawn with health reviewer role prompt
 
 **[FORTIFIER] phases:**
+
 - Implementer: **Read** `health-fortifier.md`, spawn with fortifier role prompt
 - Reviewer: **Read** `health-reviewer.md`, spawn with health reviewer role prompt
 
 **[IMPLEMENTER] phases:**
+
 - Implementer: **Read** `implementer.md`, spawn with standard implementer role prompt
 - Reviewer: **Read** `reviewer.md`, spawn with standard code reviewer role prompt
 
 **[DOC-ENGINEER] phases:**
+
 - Implementer: **Read** `doc-engineer.md`, spawn with doc engineer role prompt
 - Reviewer: **Read** `doc-reviewer.md`, spawn with doc reviewer role prompt
 
@@ -183,6 +190,7 @@ Agent spawn format is the same as main SKILL.md Stage 2, substituting the approp
 Loop until `PHASE_APPROVED` or max iterations per phase.
 
 Report between phases:
+
 ```text
 Phase N [TAG] approved after M iteration(s).
 Remaining phases: [list with tags]
@@ -234,6 +242,7 @@ The **orchestrator** must write the verification result to feedback.md **before*
 2. If agent returned `UNVERIFIED`: **Edit** feedback.md to append `UNVERIFIED` with the list of unverified items under a `## Verification` section
 
 Then assess:
+
 - If `VERIFIED` → report success
 - If `UNVERIFIED` → the orchestrator reads the unverified items and decides:
   - If minor (< 3 items): report to user with specific items, let them decide
