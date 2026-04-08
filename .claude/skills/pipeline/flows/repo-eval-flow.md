@@ -19,6 +19,7 @@
 ## Intake Document
 
 The intake skill produces `docs/plans/$ARGUMENTS/eval.md` with:
+
 - `type: repo-eval` in frontmatter
 - Combined output from all 3 evaluators
 - 12 pillar scores (4 per evaluator)
@@ -48,6 +49,7 @@ Report detected state to the user before continuing.
 ## Pre-Flight: Role File Validation
 
 Before spawning any agents, verify all required role prompt files exist using **Glob**:
+
 - `skills/pipeline/planner.md`
 - `skills/pipeline/plan_reviewer.md`
 - `skills/pipeline/implementer.md`
@@ -81,17 +83,20 @@ The 3 evaluators score independently on different scales. Before feeding scores 
 ## Calibration
 
 ### Cross-Evaluator Divergences
+
 - [Pillar A] (Hire) vs [Pillar B] (Stress): X/10 vs Y/10 — [note on what this signals]
 
 ### Effective Thresholds
-| Pillar | Target | Source |
-|--------|--------|--------|
-| Problem-Solution Fit | 9 | default |
-| Creativity | 7 | user override |
-| Git Hygiene | accept | user override (excluded from gate) |
-| ... | ... | ... |
+
+| Pillar               | Target | Source                             |
+| -------------------- | ------ | ---------------------------------- |
+| Problem-Solution Fit | 9      | default                            |
+| Creativity           | 7      | user override                      |
+| Git Hygiene          | accept | user override (excluded from gate) |
+| ...                  | ...    | ...                                |
 
 ### Pillars Requiring Remediation
+
 [List only pillars below their effective threshold]
 ```
 
@@ -197,6 +202,7 @@ The **orchestrator** must write the verification result to feedback.md **before*
 2. If agent returned `UNVERIFIED`: **Edit** feedback.md to append `UNVERIFIED` with the list of unverified items under a `## Verification` section
 
 Then assess:
+
 - If `VERIFIED` → report success
 - If `UNVERIFIED` → report unverified items to user, let them decide
 

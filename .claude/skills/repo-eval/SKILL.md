@@ -65,6 +65,7 @@ C) Specific directories only (tell me which to include or exclude)
 ```
 
 **Question 5** — Pillar overrides. By default, `/pipeline` remediates until all 12 pillars hit 9/10. Some pillars may not be improvable through code changes. The 12 pillars are:
+
 - **Hire lens:** Problem-Solution Fit, Architecture, Code Quality, Creativity
 - **Stress lens:** Pragmatism, Defensiveness, Performance, Type Rigor
 - **Day 2 lens:** Test Value, Reproducibility, Git Hygiene, Onboarding
@@ -81,6 +82,7 @@ Record overrides in the eval.md frontmatter.
 ### Step 2: Generate Plan Identifier
 
 Generate the directory name: `YYYY-MM-DD-eval-slug`
+
 - Date: today's date
 - Slug: short name for the repo being evaluated (e.g., `eval-ragstack`, `eval-billing-api`)
 - Location: `docs/plans/YYYY-MM-DD-eval-slug/`
@@ -98,6 +100,7 @@ Create the directory.
 Then spawn **3 Agents in parallel**:
 
 #### Evaluator 1: The Pragmatist
+
 ```xml
 <role_prompt>
 [Contents of eval-hire.md]
@@ -112,6 +115,7 @@ Exclusions: [from Step 1]
 ```
 
 #### Evaluator 2: The Oncall Engineer
+
 ```xml
 <role_prompt>
 [Contents of eval-stress.md]
@@ -126,6 +130,7 @@ Exclusions: [from Step 1]
 ```
 
 #### Evaluator 3: The Team Lead
+
 ```xml
 <role_prompt>
 [Contents of eval-day2.md]
@@ -142,6 +147,7 @@ Exclusions: [from Step 1]
 ### Step 4: Validate and Combine Results
 
 Verify each evaluator's output contains its completion signal before proceeding:
+
 - Evaluator 1: check for `EVAL_HIRE_COMPLETE`
 - Evaluator 2: check for `EVAL_STRESS_COMPLETE`
 - Evaluator 3: check for `EVAL_DAY2_COMPLETE`
@@ -165,41 +171,47 @@ pillar_overrides:
 # Repo Evaluation: [repo name]
 
 ## Configuration
+
 - **Role Level:** [Junior | Mid | Senior | Staff+]
 - **Focus Areas:** [list]
 - **Exclusions:** [list]
 
 ## Combined Scorecard
 
-| # | Lens | Pillar | Score | Target | Status |
-|---|------|--------|-------|--------|--------|
-| 1 | Hire | Problem-Solution Fit | X/10 | 9 | [PASS ≥target | NEEDS WORK <target] |
-| 2 | Hire | Architecture | X/10 | ... |
-| 3 | Hire | Code Quality | X/10 | ... |
-| 4 | Hire | Creativity | X/10 | ... |
-| 5 | Stress | Pragmatism | X/10 | ... |
-| 6 | Stress | Defensiveness | X/10 | ... |
-| 7 | Stress | Performance | X/10 | ... |
-| 8 | Stress | Type Rigor | X/10 | ... |
-| 9 | Day 2 | Test Value | X/10 | ... |
-| 10 | Day 2 | Reproducibility | X/10 | ... |
-| 11 | Day 2 | Git Hygiene | X/10 | ... |
-| 12 | Day 2 | Onboarding | X/10 | ... |
+| #   | Lens   | Pillar               | Score | Target | Status        |
+| --- | ------ | -------------------- | ----- | ------ | ------------- | ------------------- |
+| 1   | Hire   | Problem-Solution Fit | X/10  | 9      | [PASS ≥target | NEEDS WORK <target] |
+| 2   | Hire   | Architecture         | X/10  | ...    |
+| 3   | Hire   | Code Quality         | X/10  | ...    |
+| 4   | Hire   | Creativity           | X/10  | ...    |
+| 5   | Stress | Pragmatism           | X/10  | ...    |
+| 6   | Stress | Defensiveness        | X/10  | ...    |
+| 7   | Stress | Performance          | X/10  | ...    |
+| 8   | Stress | Type Rigor           | X/10  | ...    |
+| 9   | Day 2  | Test Value           | X/10  | ...    |
+| 10  | Day 2  | Reproducibility      | X/10  | ...    |
+| 11  | Day 2  | Git Hygiene          | X/10  | ...    |
+| 12  | Day 2  | Onboarding           | X/10  | ...    |
 
 **Pillars at target (≥9):** N/12
 **Pillars needing work (<9):** M/12
 
 ## Hire Evaluation — The Pragmatist
+
 [Full evaluator output]
 
 ## Stress Evaluation — The Oncall Engineer
+
 [Full evaluator output]
 
 ## Day 2 Evaluation — The Team Lead
+
 [Full evaluator output]
 
 ## Consolidated Remediation Targets
+
 [Merged and deduplicated targets from all 3 evaluators, prioritized by:
+
 1. Lowest score first
 2. Highest complexity last
 3. Overlapping findings consolidated]

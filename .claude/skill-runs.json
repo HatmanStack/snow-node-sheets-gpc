@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "skill": "audit",
+    "date": "2026-04-07",
+    "plan": "2026-04-07-audit-snow-node-sheets-gpc",
+    "audits": ["health", "eval", "docs"]
+  },
+  {
+    "skill": "pipeline",
+    "date": "2026-04-07",
+    "plan": "2026-04-07-audit-snow-node-sheets-gpc",
+    "verdict": "VERIFIED"
+  }
+]

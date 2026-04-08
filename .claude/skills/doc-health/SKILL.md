@@ -65,6 +65,7 @@ D) None — just fix the existing docs, no new tooling
 ### Step 2: Generate Plan Identifier
 
 Generate the directory name: `YYYY-MM-DD-docs-slug`
+
 - Date: today's date
 - Slug: short name (e.g., `docs-ragstack`, `docs-api`)
 - Location: `docs/plans/YYYY-MM-DD-docs-slug/`
@@ -107,17 +108,20 @@ language_stack: [from Step 1]
 # Documentation Audit: [repo name]
 
 ## Configuration
+
 - **Prevention Scope:** [from Step 1]
 - **CI Platform:** [from Step 1]
 - **Language Stack:** [from Step 1]
 - **Constraints:** [from Step 1]
 
 ## Summary
+
 - Docs scanned: N files
 - Code modules scanned: M
 - Findings: X drift, Y gaps, Z stale, W broken links
 
 ## Findings
+
 [Full auditor output organized by category:
 DRIFT, GAPS, STALE, BROKEN LINKS, STALE CODE EXAMPLES, CONFIG DRIFT, STRUCTURE ISSUES]
 ```

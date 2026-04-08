@@ -77,6 +77,7 @@ C) None — no linting, CI, or hooks configured
 ### Step 2: Generate Plan Identifier
 
 Generate the directory name: `YYYY-MM-DD-health-slug`
+
 - Date: today's date
 - Slug: short name (e.g., `health-ragstack`, `health-api`)
 - Location: `docs/plans/YYYY-MM-DD-health-slug/`
@@ -120,22 +121,27 @@ goal: [from Step 1]
 # Codebase Health Audit: [repo name]
 
 ## Configuration
+
 - **Goal:** [from Step 1]
 - **Scope:** [from Step 1]
 - **Existing Tooling:** [from Step 1]
 - **Constraints:** [from Step 1]
 
 ## Summary
+
 - Overall health: [CRITICAL | POOR | FAIR | GOOD | EXCELLENT]
 - Total findings: X critical, Y high, Z medium, W low
 
 ## Tech Debt Ledger
+
 [Full auditor output — prioritized findings with file:line locations]
 
 ## Quick Wins
+
 [Low effort, high impact items from the auditor]
 
 ## Automated Scan Results
+
 [Tool output summaries from knip/vulture, npm audit/pip-audit, etc.]
 ```
 

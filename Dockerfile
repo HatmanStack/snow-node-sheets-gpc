@@ -1,24 +1,25 @@
-# Use the official lightweight Node.js 12 image.
-# https://hub.docker.com/_/node
-FROM node:16
+# Pinned Node 20 LTS Alpine by digest for reproducible, immutable builds.
+# Bump manually when patching: docker pull node:20-alpine && docker inspect ...
+FROM node:20-alpine@sha256:f598378b5240225e6beab68fa9f356db1fb8efe55173e6d4d8153113bb8f333c
 
-# Create and change to the app directory.
 WORKDIR /usr/src/app
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-# Copying this separately prevents re-running npm install on every code change.
-COPY package*.json ./
+# Install only production deps with a deterministic lockfile.
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Install production dependencies.
-RUN npm install 
+# Copy application source. .dockerignore excludes secrets, tests, VCS.
+COPY index.js ./
+COPY src ./src
+COPY public ./public
 
-# Copy local code to the container image.
-COPY . .
+# Drop privileges.
+USER node
 
-# Explicitly copy creds.json to ensure it's present if ignored by context
-COPY creds.json ./creds.json
-
-# Run the web service on container startup.
+ENV NODE_ENV=production
 EXPOSE 8080
-CMD [ "node", "index.js" ]
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -q -O - http://127.0.0.1:8080/healthz || exit 1
+
+CMD ["node", "index.js"]

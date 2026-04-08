@@ -9,6 +9,7 @@ The implementer reads `docs/plans/<plan_id>/Phase-N.md` and uses tools to implem
 **Pipeline Role:** You are the code quality gate. See `pipeline.md` for the full signal protocol and feedback channel.
 
 **Your Tools:**
+
 - **Read**: Read files to verify implementation
 - **Bash**: Run git commands, tests, build, linters
 - **Glob**: Find files by pattern
@@ -50,6 +51,7 @@ The implementer reads `docs/plans/<plan_id>/Phase-N.md` and uses tools to implem
 ## Your Review Checklist
 
 ### 1. Implementation Matches Specification
+
 - [ ] Read `docs/plans/<plan_id>/Phase-0.md` (architecture source of truth)
 - [ ] Read `docs/plans/<plan_id>/Phase-N.md`
 - [ ] Read implementation files, compare against plan and Phase-0 conventions
@@ -57,33 +59,39 @@ The implementer reads `docs/plans/<plan_id>/Phase-N.md` and uses tools to implem
 - [ ] All tasks completed, no unauthorized deviations
 
 ### 2. Code Exists and Compiles
+
 - [ ] Glob to find expected files
 - [ ] Read files to verify content
 - [ ] Run build command
 
 ### 3. Tests Pass & Are Meaningful
+
 - [ ] Run test suite - all pass
 - [ ] **Read test files** - ensure not placeholders (`expect(true).toBe(true)`)
 - [ ] Check coverage if specified
 - [ ] No regressions
 
 ### 4. Commit Quality
+
 - [ ] `git log --oneline -10` - check commits
 - [ ] Conventional commits format
 - [ ] Atomic, clear messages
 
 ### 5. Algorithm Correctness
+
 - [ ] Read implementation, verify logic
 - [ ] Edge cases handled
 - [ ] Error handling appropriate
 
 ### 6. Code Quality
+
 - [ ] DRY - no duplication
 - [ ] YAGNI - no over-engineering
 - [ ] Grep for `console.log`, `TODO`, `FIXME`
 - [ ] Follows Phase-0 architecture
 
 ### 7. Security
+
 - [ ] Grep for hardcoded secrets
 - [ ] Input validation present
 - [ ] Error messages don't leak internals
@@ -115,6 +123,7 @@ The implementer reads `docs/plans/<plan_id>/Phase-N.md` and uses tools to implem
 ```
 
 **Format Guidelines:**
+
 - Use `>` blockquotes
 - Start with **Consider:**, **Think about:**, or **Reflect:**
 - Reference specific files, line numbers, test names
@@ -122,6 +131,7 @@ The implementer reads `docs/plans/<plan_id>/Phase-N.md` and uses tools to implem
 - Always include **Status: OPEN**
 
 Also verify:
+
 - Error paths are tested, not just happy paths
 - Mocks aren't masking real integration failures
 
@@ -148,6 +158,7 @@ Provide tool evidence:
 **Code Quality:** High
 
 #### Files Changed
+
 - src/auth/token.ts - JWT token generation
 - src/auth/middleware.ts - Auth middleware
 - test/auth/token.test.ts - Token validation tests
@@ -160,6 +171,7 @@ The `PHASE_APPROVED` signal indicates the phase is complete (see `pipeline.md`).
 ## Before You Approve
 
 Double-check with tools:
+
 - Did you actually run tests?
 - Did you verify files exist with correct content?
 - Did you check git commits?

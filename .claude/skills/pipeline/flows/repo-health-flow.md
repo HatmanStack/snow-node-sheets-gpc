@@ -19,6 +19,7 @@
 ## Intake Document
 
 The intake skill produces `docs/plans/$ARGUMENTS/health-audit.md` with:
+
 - `type: repo-health` in frontmatter
 - Tech debt ledger (prioritized by severity)
 - Quick wins identified
@@ -46,6 +47,7 @@ Report detected state to the user before continuing.
 ## Pre-Flight: Role File Validation
 
 Before spawning any agents, verify all required role prompt files exist using **Glob**:
+
 - `skills/pipeline/planner.md`
 - `skills/pipeline/plan_reviewer.md`
 - `skills/pipeline/health-hygienist.md`
@@ -73,6 +75,7 @@ Auditor agents are **token-expensive**. They run exactly twice in the full lifec
 **Max iterations: 3.**
 
 The planner reads `health-audit.md` instead of `brainstorm.md`. The planner creates ONE unified remediation plan with phases sequenced as:
+
 - **Early phases:** Subtractive work (cleanup, dead code, unused deps) — Hygienist executes these
 - **Later phases:** Additive work (linting, CI, hooks, type strictness) — Fortifier executes these
 
@@ -137,6 +140,7 @@ Process phases sequentially. The orchestrator determines which implementer role 
 **Agent spawn format is the same as main SKILL.md Stage 2, substituting the appropriate role prompt.**
 
 Report between phases:
+
 ```text
 Phase N ([HYGIENIST|FORTIFIER]) approved after M iteration(s).
 Remaining phases: [list]
@@ -186,6 +190,7 @@ The **orchestrator** must write the verification result to feedback.md **before*
 2. If agent returned `UNVERIFIED`: **Edit** feedback.md to append `UNVERIFIED` with the list of unverified items under a `## Verification` section
 
 Then assess:
+
 - If `VERIFIED` → report success
 - If `UNVERIFIED` → report unverified items to user, let them decide
 

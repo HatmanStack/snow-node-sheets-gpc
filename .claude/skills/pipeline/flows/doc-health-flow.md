@@ -19,6 +19,7 @@
 ## Intake Document
 
 The intake skill produces `docs/plans/$ARGUMENTS/doc-audit.md` with:
+
 - `type: doc-health` in frontmatter
 - Drift findings (doc exists, doesn't match code)
 - Gap findings (code exists, no doc)
@@ -47,6 +48,7 @@ Report detected state to the user before continuing.
 ## Pre-Flight: Role File Validation
 
 Before spawning any agents, verify all required role prompt files exist using **Glob**:
+
 - `skills/pipeline/planner.md`
 - `skills/pipeline/plan_reviewer.md`
 - `skills/pipeline/doc-engineer.md`
@@ -73,6 +75,7 @@ Auditor agents are **token-expensive**. They run exactly twice in the full lifec
 **Max iterations: 3.**
 
 The planner reads `doc-audit.md` instead of `brainstorm.md`. The planner creates ONE remediation plan with phases sequenced as:
+
 - **Early phases:** Content fixes (delete stale, fix drifted, create stubs, fix links)
 - **Later phases:** Prevention tooling (doc linting, link checking, auto-gen, CI)
 
@@ -123,6 +126,7 @@ Loop until `PLAN_APPROVED` or max iterations.
 Process phases sequentially. Agent spawn format matches main SKILL.md Stage 2, substituting the doc-engineer and doc-reviewer role prompts.
 
 Report between phases:
+
 ```text
 Phase N approved after M iteration(s).
 Remaining phases: [list]
@@ -171,6 +175,7 @@ The **orchestrator** must write the verification result to feedback.md **before*
 2. If agent returned `UNVERIFIED`: **Edit** feedback.md to append `UNVERIFIED` with the list of unverified items under a `## Verification` section
 
 Then assess:
+
 - If `VERIFIED` → report success
 - If `UNVERIFIED` → report unverified items to user, let them decide
 
