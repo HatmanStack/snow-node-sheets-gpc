@@ -29,7 +29,8 @@ async function fetchJson(url, init = {}) {
       return res;
     } catch (err) {
       if (attempt >= fetchMaxRetries) throw err;
-      const delay = 200 * 2 ** attempt;
+      const base = 200 * 2 ** attempt;
+      const delay = base * (1 + Math.random() * 0.2);
       await new Promise((r) => setTimeout(r, delay));
       attempt++;
     } finally {
