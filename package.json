@@ -1,7 +1,7 @@
 {
-  "name": "node-sheets-to-snow",
-  "version": "2.0.0.",
-  "description": "google sheets to snow connector with oauth",
+  "name": "dynamo-node-sheets-gpc",
+  "version": "2.0.0",
+  "description": "Google Sheets to DynamoDB connector running on Cloud Run.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "express": "^5.2.1",
-    "googleapis": "^171.4.0",
-    "node-fetch": "^3.3.2"
+    "googleapis": "^171.4.0"
   }
 }
