@@ -136,6 +136,7 @@ ADR-003. No behavior changes — this is a pure refactor that makes the code tes
      'use strict';
      require('./src/server').start();
      ```
+
 - **Verification Checklist:**
   - [x] `wc -l index.js` is `<= 5`.
   - [x] `node index.js` (with required env vars set) starts the server.

@@ -67,6 +67,7 @@ and ship them independently.
      images:
        - 'gcr.io/$PROJECT_ID/dynamo-node-sheets-gpc:$SHORT_SHA'
      ```
+
   1. Out-of-band manual gcloud commands the implementer must run ONCE in the target project
      (these are NOT part of the commit; they are operational steps the implementer performs and
      records in the PR description):
@@ -84,10 +85,11 @@ and ship them independently.
        --member="serviceAccount:RUNTIME_SA_EMAIL" \
        --role="roles/secretmanager.secretAccessor"
      ```
+
 - **Verification Checklist:**
   - [x] `cloudbuild.yaml` no longer contains `--allow-unauthenticated`.
   - [x] `gcloud run services describe dynamo-node-sheets-gpc --region=us-central1
-        --format='value(status.url)'` returns the URL but unauthenticated `curl` to it returns
+    --format='value(status.url)'` returns the URL but unauthenticated `curl` to it returns
         HTTP 401/403.
   - [x] An authenticated curl works:
         `curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" $URL/healthz`
@@ -130,7 +132,7 @@ and ship them independently.
        spreadsheetId: required('SPREADSHEET_ID'),
        sheetRange: process.env.SHEET_RANGE || 'A2:E2',
        submitUrl: required('API_GATEWAY_SUBMIT_URL'),
-       listUrl:   required('API_GATEWAY_LIST_URL'),
+       listUrl: required('API_GATEWAY_LIST_URL'),
        fetchTimeoutMs: Number(process.env.FETCH_TIMEOUT_MS || 10_000),
        fetchMaxRetries: Number(process.env.FETCH_MAX_RETRIES || 3),
      };
@@ -167,12 +169,13 @@ and ship them independently.
          const timer = setTimeout(() => ctl.abort(), fetchTimeoutMs);
          try {
            const res = await fetch(url, { ...init, signal: ctl.signal });
-           if (res.status >= 500 && attempt < fetchMaxRetries) throw new Error(`upstream ${res.status}`);
+           if (res.status >= 500 && attempt < fetchMaxRetries)
+             throw new Error(`upstream ${res.status}`);
            return res;
          } catch (err) {
            if (attempt >= fetchMaxRetries) throw err;
            const delay = 200 * 2 ** attempt;
-           await new Promise(r => setTimeout(r, delay));
+           await new Promise((r) => setTimeout(r, delay));
            attempt++;
          } finally {
            clearTimeout(timer);
@@ -199,7 +202,8 @@ and ship them independently.
      }
 
      async function submitItem(item) {
-       const idempotencyKey = crypto.createHash('sha256')
+       const idempotencyKey = crypto
+         .createHash('sha256')
          .update(item.TS + '|' + item.NAME)
          .digest('hex');
        const res = await fetchJson(CONFIG.submitUrl, {
@@ -228,9 +232,10 @@ and ship them independently.
        return e;
      }
      function htmlEscape(s) {
-       return String(s).replace(/[&<>"']/g, c => (
-         { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
-       ));
+       return String(s).replace(
+         /[&<>"']/g,
+         (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
+       );
      }
 
      // ---- Express ----
@@ -239,7 +244,7 @@ and ship them independently.
      app.use(express.json({ limit: '8kb' }));
 
      app.get('/healthz', (_req, res) => res.json({ ok: true }));
-     app.get('/readyz',  (_req, res) => res.json({ ok: true }));
+     app.get('/readyz', (_req, res) => res.json({ ok: true }));
 
      // GET / is now non-mutating. Trigger lives at POST /trigger.
      app.get('/', (_req, res) => res.json({ service: 'dynamo-node-sheets-gpc', ok: true }));
@@ -250,29 +255,39 @@ and ship them independently.
          if (!item) return res.status(204).end();
          const out = await submitItem(item);
          res.json({ ok: true, item, idempotencyKey: out.idempotencyKey });
-       } catch (err) { next(err); }
+       } catch (err) {
+         next(err);
+       }
      });
 
      app.get('/data', async (_req, res, next) => {
        try {
          const items = await listItems();
          res.json(items);
-       } catch (err) { next(err); }
+       } catch (err) {
+         next(err);
+       }
      });
 
      app.get('/dashboard', async (_req, res, next) => {
        try {
          const items = await listItems();
          items.sort((a, b) => new Date(b.TS) - new Date(a.TS));
-         const rows = items.map(i => `<tr>
+         const rows = items
+           .map(
+             (i) => `<tr>
            <td>${htmlEscape(i.TS)}</td>
            <td>${htmlEscape(i.NAME)}</td>
            <td>${htmlEscape(i.DAYS)}</td>
            <td>${htmlEscape(i.DIET)}</td>
            <td>${htmlEscape(i.PAY)}</td>
-         </tr>`).join('');
-         res.set('Content-Security-Policy',
-           "default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'");
+         </tr>`,
+           )
+           .join('');
+         res.set(
+           'Content-Security-Policy',
+           "default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'",
+         );
          res.set('X-Content-Type-Options', 'nosniff');
          res.type('html').send(`<!doctype html><html><head><meta charset="utf-8">
            <title>Form Submissions</title>
@@ -284,7 +299,9 @@ and ship them independently.
            <body><h2>Form Submissions (DynamoDB)</h2>
            <table><thead><tr><th>Timestamp</th><th>Name</th><th>Days</th><th>Diet</th>
            <th>Pay</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
-       } catch (err) { next(err); }
+       } catch (err) {
+         next(err);
+       }
      });
 
      // Structured error handler — never leaks upstream bodies.
@@ -302,6 +319,7 @@ and ship them independently.
      // Graceful shutdown for Cloud Run SIGTERM.
      process.on('SIGTERM', () => server.close(() => process.exit(0)));
      ```
+
   1. Notes for the implementer:
      - The dashboard now renders server-side. There is no client-side `fetch('/data')`,
        eliminating the `tbody.innerHTML +=` XSS sink entirely.
@@ -309,6 +327,7 @@ and ship them independently.
      - `POST /trigger` is the new mutating endpoint. The Apps Script will call this.
      - All `fetch` calls are global Node 18+ `fetch`; `node-fetch` import is gone.
      - `GoogleAuth` uses no `keyFile`; it picks up `GOOGLE_APPLICATION_CREDENTIALS`.
+
 - **Verification Checklist:**
   - [x] `grep -n "node-fetch" index.js` returns nothing.
   - [x] `grep -n "creds.json" index.js` returns nothing.
@@ -316,7 +335,7 @@ and ship them independently.
   - [x] `node -e "process.env.SPREADSHEET_ID='x';process.env.API_GATEWAY_SUBMIT_URL='http://x';process.env.API_GATEWAY_LIST_URL='http://x';require('./index.js')"`
         starts and immediately listens (kill with Ctrl+C).
   - [x] Manual: with the service deployed, `curl -H "Authorization: Bearer $(gcloud auth
-        print-identity-token)" $URL/healthz` returns `{"ok":true}`.
+    print-identity-token)" $URL/healthz` returns `{"ok":true}`.
   - [x] Manual: `curl -X POST -H "Authorization: Bearer ..." $URL/trigger` writes one row.
   - [x] Manual: dashboard HTML source contains `&lt;` if a row contains `<script>`.
 - **Testing Instructions:** No automated tests yet (added in Phase 4). Verify manually as above.
