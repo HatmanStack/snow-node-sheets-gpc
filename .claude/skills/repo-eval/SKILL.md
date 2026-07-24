@@ -178,9 +178,9 @@ pillar_overrides:
 
 ## Combined Scorecard
 
-| #   | Lens   | Pillar               | Score | Target | Status        |
-| --- | ------ | -------------------- | ----- | ------ | ------------- | ------------------- |
-| 1   | Hire   | Problem-Solution Fit | X/10  | 9      | [PASS ≥target | NEEDS WORK <target] |
+| #   | Lens   | Pillar               | Score | Target | Status                               |
+| --- | ------ | -------------------- | ----- | ------ | ------------------------------------ |
+| 1   | Hire   | Problem-Solution Fit | X/10  | 9      | [PASS ≥target \| NEEDS WORK <target] |
 | 2   | Hire   | Architecture         | X/10  | ...    |
 | 3   | Hire   | Code Quality         | X/10  | ...    |
 | 4   | Hire   | Creativity           | X/10  | ...    |
