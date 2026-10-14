@@ -17,9 +17,9 @@
     "node": "20.x"
   },
   "dependencies": {
-    "express": "^5.2.1",
-    "googleapis": "^183.0.0",
-    "zod": "^4.6.5"
+    "express": "^5.3.0",
+    "googleapis": "^185.0.0",
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
